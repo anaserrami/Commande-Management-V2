@@ -1,0 +1,36 @@
+<div class="container mt-5">
+    
+    <div *ngIf="successmsg" class="alert alert-success alert-dismissible fade show" role="alert">
+      <strong>{{successmsg}}</strong>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div> 
+
+    <div class="mb-3">
+      <label for="filterInput" class="form-label">Filter the Commands Details :</label>
+      <input type="text" class="form-control" id="filterInput" [(ngModel)]="filterText" (input)="applyFilter()" placeholder="Enter a filter here">
+    </div>
+
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th class="text-center" scope="col">Command ID</th>
+          <th class="text-center" scope="col">Product</th>
+          <th class="text-center" scope="col">Quantity</th>
+          <th class="text-center" scope="col">Price</th>
+          <th class="text-center" scope="col">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor='let ldc of readData'>
+          <td class="text-center">{{ ldc.idCommande }}</td>
+          <td class="text-center">{{ ldc.produit?.nom }}</td>
+          <td class="text-center">{{ ldc.qteTotal }}</td>
+          <td class="text-center">{{ ldc.prixTotal }}  $</td>
+          <td class="text-center">
+            <button *ngIf="ldc.commande?.idEtat === 1 || ldc.commande?.user?.idRole === 1" class="btn btn-sm btn-danger" (click)="deleteLigneDeCommandeID(ldc.idProduit, ldc.idCommande)">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    
+</div>

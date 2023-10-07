@@ -1,0 +1,62 @@
+<div class="container mt-5">
+    <div *ngIf="errormsg" class="alert alert-warning alert-dismissible fade show" role="alert">
+      <strong>{{errormsg}}</strong>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    <div *ngIf="successmsg" class="alert alert-success alert-dismissible fade show" role="alert">
+      <strong>{{successmsg}}</strong>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+  
+    <div class="mb-3">
+      <label for="filterInput" class="form-label">Filter the products:</label>
+      <input type="text" class="form-control" id="filterInput" [(ngModel)]="filterText" (input)="applyFilter()" placeholder="Enter a filter here">
+    </div>
+
+    <form [formGroup]="commandeForm">
+      <div class="row">
+        <div class="col">
+        &nbsp;
+            <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th class="text-center" scope="col">#</th>
+                    <th class="text-center" scope="col">User</th>
+                    <th class="text-center" scope="col">Categorie</th>
+                    <th class="text-center" scope="col">Nom</th>
+                    <th class="text-center" scope="col">Description</th>
+                    <th class="text-center" scope="col">Qté Stock</th>
+                    <th class="text-center" scope="col">Prix</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor='let prd of readData; let i = index'>
+                    <th class="text-center" scope="row">{{i + 1}}</th>
+                    <td class="text-center">{{prd.user?.nom}}</td>
+                    <td class="text-center">{{prd.categorie?.nom}}</td>
+                    <td class="text-center">{{prd.nom}}</td>
+                    <td class="text-center">{{prd.description}}</td>
+                    <td class="text-center">{{prd.qteStock}}</td>
+                    <td class="text-center">{{prd.prix}} $</td>
+                    <td class="text-center">
+                        <div class="input-group">
+                          <button class="btn btn-outline-primary" type="button" (click)="decrementQuantity(prd)">-</button>
+                          <input type="number" class="form-control" [(ngModel)]="prd.quantity" [ngModelOptions]="{standalone: true}">
+                          <button class="btn btn-outline-primary" type="button" (click)="incrementQuantity(prd)">+</button>
+                        </div>
+                    </td>
+                  </tr>
+                </tbody>
+            </table>
+        </div>
+      </div>
+  
+      <div class="row mt-3">
+        <div class="col-lg-4">
+          <button *ngIf="!getparamid" class="btn btn-primary btn-block" (click)="commandeSubmit()">Create</button>
+          <button *ngIf="getparamid" class="btn btn-dark btn-block" (click)="commandeUpdate()">Update</button>
+        </div>
+      </div>
+    </form>
+  </div>
+  

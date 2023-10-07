@@ -1,0 +1,52 @@
+<div class="container mt-5">
+    
+    <div class="d-flex justify-content-end mb-3">
+        <a class="btn btn-primary" [routerLink]="['/add-livraison']">Add</a>
+    </div>
+
+    <div *ngIf="successmsg" class="alert alert-success alert-dismissible fade show" role="alert">
+      <strong>{{successmsg}}</strong>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div> 
+  
+    <div class="mb-3">
+      <label for="filterInput" class="form-label">Filter the Deliveries:</label>
+      <input type="text" class="form-control" id="filterInput" [(ngModel)]="filterText" (input)="applyFilter()" placeholder="Enter a filter here">
+    </div>
+
+    <table class="table table-striped">
+        <thead>
+          <tr>
+            <th class="text-center" scope="col">Supplier</th>
+            <th class="text-center" scope="col">Product</th>
+            <th class="text-center" scope="col">Delivery Delais</th>
+            <th class="text-center" scope="col">Delivery Price</th>
+            <th class="text-center" scope="col">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor='let lv of getCurrentPageData()'>
+            <td class="text-center">{{ lv.fournisseur?.nom }}</td>
+            <td class="text-center">{{ lv.produit?.nom }}</td>
+            <td class="text-center">{{ lv.delaisLivraison | date: 'yyyy-MM-dd HH:mm' }}</td>
+            <td class="text-center">{{ lv.prixLivraison }}  $</td>
+            <td class="text-center">
+              <button class="btn btn-sm btn-danger" (click)="deleteLivraisonID(lv.idFournisseur, lv.idProduit)">Delete</button>
+              &nbsp;
+              <a [routerLink]="['/add-livraison', lv.idFournisseur, lv.idProduit]" class="btn btn-sm btn-success">Update</a>
+            </td>
+          </tr>
+        </tbody>
+    </table>
+    <!-- Pagination -->
+    <div class="d-flex justify-content-between">
+      <div class="btn-group">
+        <button class="btn btn-secondary" (click)="previousPage()" [disabled]="currentPage === 1">Previous</button>
+        <button class="btn btn-secondary" (click)="nextPage()" [disabled]="currentPage * itemsPerPage >= originalData.length">Next</button>
+      </div>
+      <div class="align-self-center">
+        Page {{ currentPage }} of {{ getTotalPages() }}
+      </div>
+    </div>
+    &nbsp;
+</div>

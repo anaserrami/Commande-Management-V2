@@ -1,0 +1,49 @@
+<div class="d-flex justify-content-end mb-5">
+  <button class="btn btn-outline-dark fw-bold" (click)="logout()">
+    <svg cIcon class="me-2" name="cilLockLocked"></svg>
+    Log out</button>
+</div>
+
+<div class="container mt-5">
+
+    <div class="d-flex justify-content-end mb-3">
+      <button class="btn btn-primary" (click)="addCommandeUser()">Add</button>
+    </div>
+
+    <div *ngIf="successmsg" class="alert alert-success alert-dismissible fade show" role="alert">
+      <strong>{{successmsg}}</strong>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div> 
+
+    <div class="mb-3">
+      <label for="filterInput" class="form-label">Filter the commands:</label>
+      <input type="text" class="form-control" id="filterInput" [(ngModel)]="filterText" (input)="applyFilter()" placeholder="Enter a filter here">
+    </div>
+
+    <table class="table table-striped">
+        <thead>
+          <tr>
+            <th class="text-center" scope="col">#</th>
+            <th class="text-center" scope="col">Statut</th>
+            <th class="text-center" scope="col">Command Price</th>
+            <th class="text-center" scope="col">Created Date</th>
+            <th class="text-center" scope="col">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor='let cmd of readData; let i = index'>
+              <th class="text-center" scope="row">{{i + 1}}</th>
+              <td class="text-center">{{cmd.commandeEtat?.etat}}</td>
+              <td class="text-center">{{cmd.prixCommande}}  $</td>
+              <td class="text-center">{{ cmd.dateCommande | date: 'yyyy-MM-dd HH:mm' }}</td>
+              <td class="text-center">
+                <button *ngIf="cmd.idEtat === 1" class="btn btn-sm btn-danger" (click)="deleteCommandeUserID(cmd.id)">Delete</button>
+                &nbsp;
+                <a *ngIf="cmd.idEtat === 1" [routerLink]="['/add-commandeuser', cmd.id]" class="btn btn-sm btn-success">Update</a>
+                &nbsp;
+                <button class="btn btn-sm btn-info" (click)="showLigneDeCommandeDetails(cmd.id)">Details</button>
+              </td>
+            </tr>
+        </tbody>
+      </table>
+</div>

@@ -1,0 +1,45 @@
+<div class="container mt-5">
+  <div *ngIf="errormsg" class="alert alert-warning alert-dismissible fade show" role="alert">
+    <strong>{{errormsg}}</strong>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+  <div *ngIf="successmsg" class="alert alert-success alert-dismissible fade show" role="alert">
+    <strong>{{successmsg}}</strong>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+
+  <form [formGroup]="fournisseurForm">
+    <div class="row">
+      <div class="col-lg-6">
+        <label for="supplierFullName" class="form-label">Supplier Full Name</label>
+        <input type="text" id="supplierFullName" class="form-control rounded" formControlName="nom" placeholder="Enter Supplier Full Name">
+      </div>
+      <div class="col-lg-6">
+        <label for="supplierEmail" class="form-label">Supplier Email</label>
+        <input type="text" id="supplierEmail" class="form-control rounded" formControlName="email" placeholder="Enter Supplier Email">
+      </div>
+      <div class="col-lg-6 mt-3">
+        <label for="supplierMobile" class="form-label">Supplier Mobile</label>
+        <input type="text" id="supplierMobile" class="form-control rounded" formControlName="tele" placeholder="Enter Supplier Mobile">
+      </div>
+      <div class="col-lg-6 mt-3"> 
+        <label for="supplierUser" class="form-label">Select User</label>
+        <select id="supplierUser" class="form-select rounded" formControlName="idUser">
+          <option value="">Choose User</option>
+          <option *ngFor="let us of users" [value]="us.id">{{ us.nom }}</option>
+        </select>
+      </div>
+      <div class="col-lg-6 mt-3">
+        <label for="supplierDescription" class="form-label">Supplier Description</label>
+        <textarea cols="4" rows="4" id="supplierDescription" class="form-control rounded" formControlName="description" placeholder="Enter Supplier Description"></textarea>
+      </div>
+    </div>
+
+    <div class="row mt-4">
+      <div class="col-lg-6">
+        <button *ngIf="!getparamid" class="btn btn-primary btn-block rounded" (click)="fournisseurSubmit()">Create</button>
+        <button *ngIf="getparamid" class="btn btn-dark btn-block rounded" (click)="fournisseurUpdate()">Update</button>
+      </div>
+    </div>
+  </form>
+</div>

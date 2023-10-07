@@ -1,0 +1,26 @@
+<div class="container mt-5">
+    <div *ngIf="errormsg" class="alert alert-warning alert-dismissible fade show" role="alert">
+        <strong>{{errormsg}}</strong>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    <div *ngIf="successmsg" class="alert alert-success alert-dismissible fade show" role="alert">
+        <strong>{{successmsg}}</strong>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+
+    <form [formGroup]="categorieForm">
+        <div class="row">
+            <div class="col-lg-6">
+              <label for="categoryName" class="form-label">Category Name</label>
+              <input type="text" id="categoryName" class="form-control rounded" formControlName="nom" placeholder="Enter New Category">
+            </div>
+        </div>
+
+        <div class="row mt-3">
+            <div class="col-lg-4">
+                <button *ngIf="!getparamid" class="btn btn-primary btn-block" (click)="categorieSubmit()">Create</button>
+                <button *ngIf="getparamid" class="btn btn-dark btn-block" (click)="categorieUpdate()">Update</button>
+            </div>
+        </div>
+    </form>
+</div>

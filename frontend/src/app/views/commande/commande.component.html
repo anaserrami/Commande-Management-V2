@@ -1,0 +1,53 @@
+<div class="container mt-5">
+    
+    <div class="d-flex justify-content-end mb-3">
+      <a class="btn btn-primary" [routerLink]="['/add-commande']">Add</a>
+    </div>
+
+    <div *ngIf="successmsg" class="alert alert-success alert-dismissible fade show" role="alert">
+      <strong>{{successmsg}}</strong>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div> 
+  
+    <div class="mb-3">
+      <label for="filterInput" class="form-label">Filter the commands:</label>
+      <input type="text" class="form-control" id="filterInput" [(ngModel)]="filterText" (input)="applyFilter()" placeholder="Enter a filter here">
+    </div>
+
+    <table class="table table-striped">
+        <thead>
+          <tr>
+            <th class="text-center" scope="col">#</th>
+            <th class="text-center" scope="col">User</th>
+            <th class="text-center" scope="col">Statut</th>
+            <th class="text-center" scope="col">Command Price</th>
+            <th class="text-center" scope="col">Created Date</th>
+            <th class="ps-5" scope="col">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor='let cmd of readData; let i = index'>
+              <th class="text-center" scope="row">{{i + 1}}</th>
+              <td class="text-center">{{cmd.user?.nom}}&nbsp;&nbsp;&nbsp;&nbsp;<b>({{cmd.user?.role?.nom}})</b></td>
+              <td class="text-center">{{cmd.commandeEtat?.etat}}</td>
+              <td class="text-center">{{cmd.prixCommande}}  $</td>
+              <td class="text-center">{{ cmd.dateCommande | date: 'yyyy-MM-dd HH:mm' }}</td>
+              <td>
+                <button *ngIf="cmd.idEtat === 1 && cmd.user?.idRole === 1" class="btn btn-sm btn-danger" (click)="deleteCommandeID(cmd.id)">Delete</button>
+                &nbsp;
+                <a *ngIf="cmd.user?.idRole === 1 && cmd.idEtat === 1" [routerLink]="['/add-commande', cmd.id]" class="btn btn-sm btn-success">Update</a>
+                &nbsp;
+                <button class="btn btn-sm btn-info" (click)="showLigneDeCommandeDetails(cmd.id)">Details</button>
+                &nbsp;
+                <button *ngIf="cmd.idEtat === 1" class="btn btn-sm btn-warning" (click)="validerCommande(cmd.id, 2)">Valider</button>
+                &nbsp;
+                <select *ngIf="cmd.idEtat === 2" class="form-select form-select-sm" aria-label="Small select example" (change)="onEtatChange(cmd.id, selectElement.value)" #selectElement>
+                  <option value="">Choose Statut</option>
+                  <option value="complete">Complete</option>
+                  <option value="cancel">Cancel</option>
+                </select>
+              </td>
+            </tr>
+        </tbody>
+      </table>
+</div>

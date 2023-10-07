@@ -1,0 +1,43 @@
+<div class="container mt-5">
+    
+  <div class="d-flex justify-content-end mb-3">
+    <a class="btn btn-primary" [routerLink]="['/add-user']">Add</a>
+  </div>
+
+  <div *ngIf="successmsg" class="alert alert-success alert-dismissible fade show" role="alert">
+    <strong>{{successmsg}}</strong>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div> 
+
+  <div class="mb-3">
+    <label for="filterInput" class="form-label">Filter the users:</label>
+    <input type="text" class="form-control" id="filterInput" [(ngModel)]="filterText" (input)="applyFilter()" placeholder="Enter a filter here">
+  </div>
+
+  <table class="table table-striped">
+      <thead>
+        <tr>
+          <th class="text-center" scope="col">#</th>
+          <th class="text-center" scope="col">Name</th>
+          <th class="text-center" scope="col">Email</th>
+          <th class="text-center" scope="col">Mobile</th>
+          <th class="text-center" scope="col">Role</th>
+          <th class="text-center" scope="col">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor='let us of readData; let i = index'>
+          <th class="text-center" scope="row">{{ i + 1 }}</th>
+          <td class="text-center" >{{us.nom}}</td>
+          <td class="text-center" >{{us.email}}</td>
+          <td class="text-center" >{{us.tele}}</td>
+          <td class="text-center" >{{us.role?.nom}}</td>
+          <td class="text-center">
+            <button class="btn btn-sm btn-danger" (click)="deleteUserID(us.id)">Delete</button>
+            &nbsp;
+            <a [routerLink]="['/add-user', us.id]" class="btn btn-sm btn-success">Update</a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+</div>

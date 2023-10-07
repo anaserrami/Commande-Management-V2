@@ -1,0 +1,45 @@
+<div class="container mt-5">
+    <div *ngIf="errormsg" class="alert alert-warning alert-dismissible fade show" role="alert">
+      <strong>{{errormsg}}</strong>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    <div *ngIf="successmsg" class="alert alert-success alert-dismissible fade show" role="alert">
+      <strong>{{successmsg}}</strong>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+
+    <form [formGroup]="livraisonForm">
+      <div class="row">
+        <div class="col-lg-6 mt-2">
+          <label for="fournisseur">Select Fournisseur</label>
+          <select id="fournisseur" class="form-control form-select rounded" formControlName="idFournisseur">
+            <option value="">Choose Fournisseur</option>
+            <option *ngFor="let fr of fournisseurs" [value]="fr.id">{{ fr.nom }}</option>
+          </select>
+        </div>
+        <div class="col-lg-6 mt-2">
+          <label for="produit">Select Produit</label>
+          <select id="produit" class="form-control form-select rounded" formControlName="idProduit">
+            <option value="">Choose Produit</option>
+            <option *ngFor="let prd of produits" [value]="prd.id">{{ prd.nom }}</option>
+          </select>
+        </div>
+        <div class="col-lg-6 mt-2">
+          <label for="estimatedDelivery">Estimated Delivery day</label>
+          <input type="date" id="estimatedDelivery" class="form-control rounded" formControlName="delaisLivraison" placeholder="Enter Estimated Delivery day">
+        </div>
+        <div class="col-lg-6 mt-2">
+          <label for="deliveryPrice">Delivery Price</label>
+          <input type="text" id="deliveryPrice" class="form-control rounded" formControlName="prixLivraison" placeholder="Enter Delivery Price">
+        </div>
+      </div>
+  
+      <div class="row mt-3">
+        <div class="col-lg-4">
+          <button *ngIf="!(getparamidFour || getparamidProd)" class="btn btn-primary btn-block rounded" (click)="livraisonSubmit()">Create</button>
+          <button *ngIf="getparamidFour && getparamidProd" class="btn btn-dark btn-block rounded" (click)="livraisonUpdate()">Update</button>
+        </div>
+      </div>
+    </form>
+  </div>
+  

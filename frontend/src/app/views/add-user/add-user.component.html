@@ -1,0 +1,45 @@
+<div class="container mt-5">
+  <div *ngIf="errormsg" class="alert alert-warning alert-dismissible fade show" role="alert">
+    <strong>{{errormsg}}</strong>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+  <div *ngIf="successmsg" class="alert alert-success alert-dismissible fade show" role="alert">
+    <strong>{{successmsg}}</strong>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+
+  <form [formGroup]="userForm">
+    <div class="row">
+      <div class="col-lg-6">
+        <label for="fullName" class="form-label">Full Name</label>
+        <input type="text" id="fullName" class="form-control rounded" formControlName="nom" placeholder="Enter Full Name">
+      </div>
+      <div class="col-lg-6">
+        <label for="mobile" class="form-label">Mobile</label>
+        <input type="text" id="mobile" class="form-control rounded" formControlName="tele" placeholder="Enter Mobile">
+      </div>
+      <div class="col-lg-6 mt-3">
+        <label for="email" class="form-label">Email</label>
+        <input type="text" id="email" class="form-control rounded" formControlName="email" placeholder="Enter Email">
+      </div>
+      <div class="col-lg-6 mt-3">
+        <label for="password" class="form-label">Password</label>
+        <input type="password" id="password" class="form-control rounded" formControlName="password" placeholder="Enter Password">
+      </div>
+      <div class="col-lg-6 mt-3">
+        <label for="role" class="form-label">Role</label>
+        <select id="role" class="form-select rounded" formControlName="idRole">
+          <option value="">Choose a Role</option>
+          <option *ngFor="let role of roles" [value]="role.id">{{ role.nom }}</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="row mt-4">
+      <div class="col-lg-6">
+        <button *ngIf="!getparamid" class="btn btn-primary btn-block rounded" (click)="userSubmit()">Create</button>
+        <button *ngIf="getparamid" class="btn btn-dark btn-block rounded" (click)="userUpdate()">Update</button>
+      </div>
+    </div>
+  </form>
+</div>

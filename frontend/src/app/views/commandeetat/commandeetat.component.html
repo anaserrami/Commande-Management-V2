@@ -1,0 +1,37 @@
+<div class="container mt-5">
+    
+    <div class="d-flex justify-content-end mb-3">
+      <a class="btn btn-primary" [routerLink]="['/add-commandeetat']">Add</a>
+    </div>
+
+    <div *ngIf="successmsg" class="alert alert-success alert-dismissible fade show" role="alert">
+      <strong>{{successmsg}}</strong>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div> 
+  
+    <div class="mb-3">
+      <label for="filterInput" class="form-label">Filter the statuts:</label>
+      <input type="text" class="form-control" id="filterInput" [(ngModel)]="filterText" (input)="applyFilter()" placeholder="Enter a filter here">
+    </div>
+
+    <table class="table table-striped">
+        <thead>
+          <tr>
+            <th class="text-center" scope="col">#</th>
+            <th class="text-center" scope="col">Statut</th>
+            <th class="text-center" scope="col">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor='let et of readData; let i = index'>
+            <th class="text-center" scope="row">{{i + 1}}</th>
+            <td class="text-center">{{et.etat}}</td>
+            <td class="text-center">
+              <button class="btn btn-sm btn-danger" (click)="deleteCommandeEtatID(et.id)">Delete</button>
+              &nbsp;
+              <a [routerLink]="['/add-commandeetat', et.id]" class="btn btn-sm btn-success">Update</a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+</div>
