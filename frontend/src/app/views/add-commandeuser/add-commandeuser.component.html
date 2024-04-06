@@ -1,3 +1,9 @@
+<div class="d-flex justify-content-end mb-5">
+  <button class="btn btn-outline-dark fw-bold" (click)="logout()">
+    <svg cIcon class="me-2" name="cilLockLocked"></svg>
+    Log out</button>
+</div>
+
 <div class="container mt-5">
     <div *ngIf="errormsg" class="alert alert-warning alert-dismissible fade show" role="alert">
       <strong>{{errormsg}}</strong>

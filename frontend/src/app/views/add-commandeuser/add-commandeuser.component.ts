@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ApiserviceService } from '../../apiservice.service';
-import { ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-add-commandeuser',
@@ -11,6 +11,7 @@ import { ActivatedRoute } from '@angular/router';
 export class AddCommandeuserComponent implements OnInit {
   constructor(
     private service: ApiserviceService,
+    private route: Router,
     private router: ActivatedRoute
   ) {}
 
@@ -194,6 +195,10 @@ export class AddCommandeuserComponent implements OnInit {
     if (product.quantity && product.quantity > 0) {
       product.quantity -= 1;
     }
+  }
+
+  logout() {
+    this.route.navigate(['/login']);
   }
 
   applyFilter() {
